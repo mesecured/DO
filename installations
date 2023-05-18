@@ -1,3 +1,4 @@
+ 	
 ansible python pre installled
 
 
@@ -53,6 +54,44 @@ repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 
 
+nano file banani hai
+
+sudo nano nginx-deployment.yaml
+
+uske andar ka code-
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: nginx-configmap
+
+
+sudo kubectl get deployments
+
+
 
 comand prompt
 
@@ -99,3 +138,32 @@ sudo chkconfig httpd on
 sudo service httpd status
 sudo service httpd stop
 sudo chkconfig httpd off
+
+
+
+
+Terraform
+
+sudo yum update
+wget https://releases.hashicorp.com/terraform/1.4.6/terraform_1.4.6_linux_amd64.zip
+sudo yum install unzip
+unzip terraform_1.4.6_linux_amd64.zip
+sudo mv terraform /usr/local/bin/
+terraform version
+
+# Specify the provider block to define the AWS provider
+provider "aws" {
+  region = "us-east-1"  # Update with your desired AWS region
+}
+
+# Define the resource block for the EC2 instance
+resource "aws_instance" "example_instance" {
+  ami           = "ami-0c94855ba95c71c99"  # Update with your desired AMI ID
+  instance_type = "t2.micro"                # Update with your desired instance type
+
+  tags = {
+    Name = "example-instance"
+  }
+}
+
+terraform init
