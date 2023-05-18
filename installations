@@ -1,0 +1,101 @@
+ansible python pre installled
+
+
+sudo -i
+sudo yum install python3-pip -y
+sudo pip3 install ansible
+ansible --version
+ sudo yum update -y
+
+ansible playbook
+ nano playbook.yml
+
+nano file ke andar
+---
+- name: Install Nginx
+  hosts: my_group
+  become: yes
+  tasks:
+    - name: Update package repositories
+      package:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - nginx
+
+    - name: Start Nginx service
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+after saving file
+
+ansible-playbook nginx-playbook.yml -i
+
+
+
+
+
+
+kubernetes
+
+sudo nano /etc/yum.repos.d/kubernetes.repo
+nano editior open ho jayega
+
+nano editior file
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+
+
+
+comand prompt
+
+sudo yum install -y kubelet kubeadm kubectl
+sudo systemctl enable kubelet
+sudo systemctl start kubelet
+kubectl version --client
+
+
+
+
+docker 
+
+
+sudo yum  update
+sudo yum update -y
+sudo yum install -y docker
+sudo service docker start
+sudo chkconfig docker on
+sudo usermod -aG docker $ujjwal
+sudo docker info
+docker --version
+sudo pull nginx
+sudo docker run -d -p 80:80 nginx
+sudo docker ps
+
+-- instance public ip + :80 --
+
+sudo docker kill <image_name>
+
+
+
+
+
+
+config/deploy network services on boot
+
+ps --pid 1
+sudo systemctl list-unit-files --state=disabled
+sudo systemctl list-unit-files --state=enabled
+sudo yum install httpd
+sudo service httpd start
+sudo chkconfig httpd on
+sudo service httpd status
+sudo service httpd stop
+sudo chkconfig httpd off
